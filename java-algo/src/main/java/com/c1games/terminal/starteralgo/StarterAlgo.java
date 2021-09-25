@@ -57,7 +57,7 @@ public class StarterAlgo implements GameLoop {
     @Override
     public void onTurn(GameIO io, GameState move) {
         GameIO.debug().println("Performing turn " + move.data.turnInfo.turnNumber + " of your custom algo strategy");
-
+        move.attemptSpawnMultiple(Arrays.asList(new Coords[]{new Coords(24,10), new Coords(24,10), new Coords(24,10)}), UnitType.DEMOLISHER);
         buildDefenses(move);
         buildReactiveDefenses(move);
 
