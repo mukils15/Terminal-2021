@@ -12,7 +12,7 @@ import com.c1games.terminal.algo.map.GameState;
 import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
-import com.c1games.terminal.starteralgo.WinCondition.*; 
+import com.c1games.terminal.starteralgo.WinCondition; 
 
 import java.util.*;
 
@@ -78,12 +78,16 @@ public class StarterAlgo implements GameLoop {
         	WinCondition.doWin(move, ourWinCondition);
         }
         
+        b.buildDefense();
+        
+        
+        // interceptor logic 
+        
         Attack ass = new Attack(move, UnitType.Scout, 1); 
         
         double min = ass.minDam.get(0);
         
         double numScouts = move.numberAffordable(UnitType.Scout)*1.5;
-        
         
         if (numScouts >= min) {
         	Coords att = ass.minPos.get(0);
@@ -101,14 +105,6 @@ public class StarterAlgo implements GameLoop {
         		Economy.Economy(budget, move, ass.minPos.get(0));
         	}
         }
-        
-        
-        
-        
-        
-        b.buildDefense();
-        
-        // interceptor logic
         
         
 
