@@ -101,7 +101,7 @@ public class StarterAlgo implements GameLoop {
         		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
         	} else {
         		int currentMUnits = (int) move.data.p1Stats.bits;
-        		int budget = Math.min(5, Math.max(currentMUnits-10, 3));
+        		int budget = Math.min(5, Math.max(currentMUnits-5, 1));
         		Economy.Economy(budget, move, ass.minPos.get(0));
         	}
         }
