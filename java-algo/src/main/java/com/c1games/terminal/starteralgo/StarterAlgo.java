@@ -68,7 +68,7 @@ public class StarterAlgo implements GameLoop {
         BuildOrdinalDefense b = new BuildOrdinalDefense(move);
         
         boolean theirWinCondition = WinCondition.opponentWinCondition(move);
-        if (theirWinCondition) {
+        if (theirWinCondition && move.data.turnInfo.turnNumber > 3) {
         	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
         	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
         } 
