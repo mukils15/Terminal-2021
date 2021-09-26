@@ -86,7 +86,7 @@ public class StarterAlgo implements GameLoop {
              
              Interceptor.deployInterceptors(move);
              
-             if (scoutHealth >= min) {
+             if (scoutHealth >= min*2 && move.data.turnInfo.turnNumber > 3) {
              	Coords att = ass.minPos.get(0);
              	ScoutRush.ScoutRush(move, false, att);
              } else {
