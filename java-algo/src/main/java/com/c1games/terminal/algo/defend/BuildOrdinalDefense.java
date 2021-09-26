@@ -15,7 +15,7 @@ public class BuildOrdinalDefense {
         this.move = move;
     }
 
-    public void buildDefense(boolean isAttackTurn, Set<Coords> coordsToAvoid) {
+    public void buildDefense(boolean isAttackTurn, List<Coords> coordsToAvoid) {
         List<OrdinalPlacement> ordinalPlacements = DefensivePlacementStrategy.getInstance().getOrdinalPlacements();
 
         int numberBuilt = 0;
