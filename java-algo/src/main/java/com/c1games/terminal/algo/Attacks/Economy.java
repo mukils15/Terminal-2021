@@ -20,10 +20,10 @@ public class Economy{
         	 curr.attemptSpawn(best, UnitType.Demolisher);
              totalCost += 3; 
          }
-         if (best.x != 25 || best.y != 11) {
-        	 best =  new Coords(25, 11);
+         if (best.x != 24 || best.y != 10) {
+        	 best =  new Coords(24, 10);
          } else {
-        	 best = new Coords(24, 10);
+        	 best = new Coords(23, 9);
          }
          while (totalCost <= budget) {
              curr.attemptSpawn(best, UnitType.Interceptor);

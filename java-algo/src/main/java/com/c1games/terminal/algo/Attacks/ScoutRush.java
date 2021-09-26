@@ -18,6 +18,9 @@ public class ScoutRush{
         if (capped) {
             float min = Math.min(curr.data.p1Stats.bits, 5);
             for (int i = 0; i < min; i++) {
+            	if (best.x < 13) {
+            		best = new Coords(10, 3);
+            	}
                 boolean can = curr.attemptSpawn(best, UnitType.Scout);
                 if (!can) {
                     break;
@@ -26,6 +29,9 @@ public class ScoutRush{
         } else {
             float min = curr.data.p1Stats.bits;
             for (int i = 0; i < min; i++) {
+            	if (best.x < 13) {
+            		best = new Coords(10, 3);
+            	}
                 boolean can = curr.attemptSpawn(best, UnitType.Scout);
                 if (!can) {
                     break;
