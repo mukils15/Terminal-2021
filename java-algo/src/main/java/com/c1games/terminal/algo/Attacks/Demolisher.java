@@ -12,9 +12,9 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class Demolisher extends Attack{
+public class Demolisher {
     
-    public Demolisher(GameState curr, int rand, Coords best) {
+    public static void Demolisher(GameState curr, Coords best) {
         boolean can = curr.attemptSpawn(best, UnitType.Scout);
     }
     
