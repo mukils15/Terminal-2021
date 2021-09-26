@@ -11,4 +11,21 @@ import com.c1games.terminal.algo.units.UnitType;
 
 public class DemolishScoutStagger {
     
+    public DemolishScoutStagger(GameState curr, int numScouts) {
+        int totalCost = 0;
+        Coords best = Attack.bestLaunch(curr, UnitType.Scout, 1);
+        for (int i = 0; i < numScouts; i++) {
+            curr.attemptSpawn(best, UnitType.Scout);
+        }
+        if (best.x > 14) {
+            Coords demolish = new Coords(best.x-1, best.y-1);
+            curr.attemptSpawn(demolish, UnitType.Demolisher);
+        } else if (best.x < 14) {
+            Coords demolish = new Coords(best.x-1, best.y+1);
+            curr.attemptSpawn(demolish, UnitType.Demolisher);
+        } else {
+            Coords demolish = new Coords(13, 0);
+            curr.attemptSpawn(demolish, UnitType.Demolisher);
+        }
+    }
 }

@@ -7,8 +7,8 @@ import com.c1games.terminal.algo.map.GameState;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class Attack {
-    public Coords bestLaunch(GameState curr, UnitType Piece, int num) {
+public abstract class Attack {
+    public static Coords bestLaunch(GameState curr, UnitType Piece, int num) {
         Coords minCoords = new Coords(0,0);
         double minDamage = Integer.MAX_VALUE;
         for (int i = 0; i <= 27; i++) {
@@ -22,12 +22,10 @@ public class Attack {
             if (curr.canSpawn(start, Piece, num).affirmative()) {
                 List<Coords> path = curr.pathfind(start, 2);
                 double totalDamage = 0;
-                for (int m = 0; m < path.size(); m++) {
-                    Coords coord = path.get(m);
-                    List<Unit> attackers = curr.getAttackers(coord);
-                    for (int k = 0; k < attackers.size(); k++) {
-                        Unit atk = attackers.get(k);
-                        totalDamage += atk.unitInformation.attackDamageWalker.getAsDouble();
+                for (Coords m: path) {
+                    List<Unit> attackers = curr.getAttackers(m);
+                    for (Unit k: attackers) {
+                        totalDamage += k.unitInformation.attackDamageWalker.getAsDouble();
                     }
                 }
                 if (totalDamage < minDamage) {

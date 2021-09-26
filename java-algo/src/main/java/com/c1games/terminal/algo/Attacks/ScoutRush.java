@@ -12,9 +12,9 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class ScoutRush {
+public class ScoutRush extends Attack{
     public ScoutRush(int numScouts, GameState curr) {
-        Coords best = Attack.bestLaunch(curr, UnitType.Scout, numScouts);
+        Coords best = bestLaunch(curr, UnitType.Scout, numScouts);
         for (int i = 0; i < numScouts; i++) {
             boolean can = curr.attemptSpawn(best, UnitType.Scout);
             if (!can) {
@@ -22,6 +22,4 @@ public class ScoutRush {
             }
         }
     }
-    
-    
 }
