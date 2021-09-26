@@ -1,7 +1,6 @@
 package com.c1games.terminal.starteralgo;
 
 import com.c1games.terminal.algo.*;
-import com.c1games.terminal.algo.defend.BuildOrdinalDefense;
 import com.c1games.terminal.algo.io.GameLoop;
 import com.c1games.terminal.algo.io.GameLoopDriver;
 import com.c1games.terminal.algo.map.GameState;
@@ -9,14 +8,17 @@ import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Java implementation of the standard starter algo.
  */
-public class StarterAlgo implements GameLoop {
+public class StarterAlgo2 implements GameLoop {
     public static void main(String[] args) {
-        new GameLoopDriver(new StarterAlgo()).run();
+        new GameLoopDriver(new StarterAlgo2()).run();
     }
 
     private static final Coords[] wallProtectTurrets = {
@@ -57,38 +59,32 @@ public class StarterAlgo implements GameLoop {
      */
     @Override
     public void onTurn(GameIO io, GameState move) {
-        GameIO.debug().println("Performing turn " + move.data.turnInfo.turnNumber + " of Pennguins strategy");
+        GameIO.debug().println("Performing turn " + move.data.turnInfo.turnNumber + " of your custom algo strategy");
 
-        BuildOrdinalDefense b = new BuildOrdinalDefense(move);
-        b.buildDefense();
+        buildDefenses(move);
+        buildReactiveDefenses(move);
 
-        // move.attemptSpawnMultiple(Arrays.asList(new Coords[]{new Coords(24,10), new Coords(24,10), new Coords(24,10)}), UnitType.Demolisher);
-
-
-//        buildDefenses(move);
-//        buildReactiveDefenses(move);
-//
-//        if (move.data.turnInfo.turnNumber < 5) {
-//            deployRandomInterceptors(move);
-//        } else {
-//            // If they have a lot of units in the first two of their rows, we can use the long range Demolisher to deal damage to them
-//            if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
-//                demolisherLineStrategy(move);
-//            }
-//            // Otherwise lets go with a scout rush strategy where we send a ton of fast scoring units.
-//            else {
-//                // We only send scouts every other turn because its better to save up for a big attack.
-//                if (move.data.turnInfo.turnNumber % 2 == 1) {
-//                    // Lets dynamically choose which side to attack based on the expected path the units will take
-//                    Coords bestLoc = leastDamageSpawnLocation(move, List.of(new Coords(13, 0), new Coords(14, 0)));
-//                    for (int i = 0; i < 100; i++) {
-//                        move.attemptSpawn(bestLoc,UnitType.Scout);
-//                    }
-//                }
-//                // Lastly, lets build Supports
-//                move.attemptSpawnMultiple(Arrays.asList(supportLocations),UnitType.Support);
-//            }
-//        }
+        if (move.data.turnInfo.turnNumber < 5) {
+            deployRandomInterceptors(move);
+        } else {
+            // If they have a lot of units in the first two of their rows, we can use the long range Demolisher to deal damage to them
+            if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
+                demolisherLineStrategy(move);
+            }
+            // Otherwise lets go with a scout rush strategy where we send a ton of fast scoring units.
+            else {
+                // We only send scouts every other turn because its better to save up for a big attack.
+                if (move.data.turnInfo.turnNumber % 2 == 1) {
+                    // Lets dynamically choose which side to attack based on the expected path the units will take
+                    Coords bestLoc = leastDamageSpawnLocation(move, List.of(new Coords(13, 0), new Coords(14, 0)));
+                    for (int i = 0; i < 100; i++) {
+                        move.attemptSpawn(bestLoc,UnitType.Scout);
+                    }
+                }
+                // Lastly, lets build Supports
+                move.attemptSpawnMultiple(Arrays.asList(supportLocations),UnitType.Support);
+            }
+        }
     }
 
     /**
