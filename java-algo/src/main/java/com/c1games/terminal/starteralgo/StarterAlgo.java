@@ -88,7 +88,7 @@ public class StarterAlgo implements GameLoop {
              
              double scoutHealth = move.numberAffordable(UnitType.Scout)*2;
              
-             if (scoutHealth >= min*2 && move.data.turnInfo.turnNumber > 3) {
+             if (scoutHealth >= min*2.2 && move.data.turnInfo.turnNumber > 3) {
              	Coords att = ass.minPos.get(0);
              	ScoutRush.ScoutRush(move, false, att);
              } else {
@@ -100,7 +100,7 @@ public class StarterAlgo implements GameLoop {
              		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
              	} else {
              		int currentMUnits = (int) move.data.p1Stats.bits;
-             		int budget = Math.min(5, Math.max(currentMUnits-5, 1));
+             		int budget = Math.min(4, Math.max(currentMUnits-4, 1));
              		Economy.Economy(budget, move, ass.minPos.get(0));
              	}
              }
