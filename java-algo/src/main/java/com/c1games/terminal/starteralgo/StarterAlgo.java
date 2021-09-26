@@ -68,7 +68,7 @@ public class StarterAlgo implements GameLoop {
         BuildOrdinalDefense b = new BuildOrdinalDefense(move);
         
         boolean theirWinCondition = WinCondition.opponentWinCondition(move);
-        if (theirWinCondition) {
+        if (theirWinCondition && move.data.turnInfo.turnNumber > 3) {
         	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
         	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
         }
@@ -83,10 +83,15 @@ public class StarterAlgo implements GameLoop {
              double min = ass.minDam.get(0);
              
              Interceptor.deployInterceptors(move);
+              
+             if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
+               demolisherLineStrategy(move);
+             }
              
              double scoutHealth = move.numberAffordable(UnitType.Scout)*2;
              
-             if (scoutHealth >= min*2.2 && move.data.turnInfo.turnNumber > 3) {
+             
+             if (scoutHealth >= min*2 && move.data.turnInfo.turnNumber > 3) {
              	Coords att = ass.minPos.get(0);
              	ScoutRush.ScoutRush(move, false, att);
              } else {
@@ -291,25 +296,24 @@ public class StarterAlgo implements GameLoop {
         First lets find the cheapest structure. We could hardcode this to "Wall",
         but lets demonstrate how to use java-algo features.
          */
-        Config.UnitInformation cheapestUnit = null;
-        for (Config.UnitInformation uinfo : move.config.unitInformation) {
-            if (uinfo.unitCategory.isPresent() && move.isStructure(uinfo.unitCategory.getAsInt())) {
-                float[] costUnit = uinfo.cost();
-                if((cheapestUnit == null || costUnit[0] + costUnit[1] <= cheapestUnit.cost()[0] + cheapestUnit.cost()[1])) {
-                    cheapestUnit = uinfo;
-                }
-            }
+//        Config.UnitInformation cheapestUnit =;
+//        for (Config.UnitInformation uinfo : move.config.unitInformation) {
+//            if (uinfo.unitCategory.isPresent() && move.isStructure(uinfo.unitCategory.getAsInt())) {
+//                float[] costUnit = uinfo.cost();
+//                if((cheapestUnit == null || costUnit[0] + costUnit[1] <= cheapestUnit.cost()[0] + cheapestUnit.cost()[1])) {
+//                    cheapestUnit = uinfo;
+//                }
+//            }
+//        }
+//        if (cheapestUnit == null) {
+//            GameIO.debug().println("There are no structures?");
+//        }
+//
+        for (int x = 24; x>=5; x--) {
+            move.attemptSpawn(new Coords(x, 12), UnitType.Wall);
         }
-        if (cheapestUnit == null) {
-            GameIO.debug().println("There are no structures?");
-        }
-
-        for (int x = 27; x>=5; x--) {
-            move.attemptSpawn(new Coords(x, 11), move.unitTypeFromShorthand(cheapestUnit.shorthand.get()));
-        }
-
-        for (int i = 0; i<22; i++) {
-            move.attemptSpawn(new Coords(24, 10), UnitType.Demolisher);
+        for (int i = 0; i<2; i++) {
+            move.attemptSpawn(new Coords(22, 8), UnitType.Demolisher);
         }
     }
 
