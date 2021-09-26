@@ -89,10 +89,10 @@ public class StarterAlgo implements GameLoop {
              
              if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
             	 if (Interceptor.healthDeplenished(move)) {
-                	 move.attemptSpawn(new Coords(22, 8), UnitType.Interceptor);
-                	 move.attemptSpawn(new Coords(22, 8), UnitType.Interceptor);
+                	 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
+                	 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
             	 } else {
-            		 move.attemptSpawn(new Coords(22, 8), UnitType.Interceptor);
+            		 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
             	 }
                  demolisherLineStrategy(move);
              } else {
@@ -329,11 +329,11 @@ public class StarterAlgo implements GameLoop {
 //            GameIO.debug().println("There are no structures?");
 //        }
 //
-        for (int x = 24; x>=5; x--) {
-            move.attemptSpawn(new Coords(x, 12), UnitType.Wall);
-        }
+//        for (int x = 24; x>=5; x--) {
+//            move.attemptSpawn(new Coords(x, 12), UnitType.Wall);
+//        }
         for (int i = 0; i<5; i++) {
-            move.attemptSpawn(new Coords(21, 7), UnitType.Demolisher);
+            move.attemptSpawn(new Coords(22, 8), UnitType.Demolisher);
         }
     }
 
