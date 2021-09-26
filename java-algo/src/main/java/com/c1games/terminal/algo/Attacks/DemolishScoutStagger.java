@@ -13,23 +13,25 @@ public class DemolishScoutStagger {
     
     public static void DemolishScoutStagger(GameState curr, Coords best) {
         
-        int bitsRemaining = (int) curr.data.p1Stats.bits;
-        if (best.x < 13) {
-        	   for (int i = 0; i < bitsRemaining * 0.75; i++) {
+    	int bitsRemaining = (int) curr.data.p1Stats.bits;
+    	if (best.x < 13) {
+        	for (int i = 0; i < bitsRemaining * 0.75; i++) {
                 curr.attemptSpawn(new Coords(10, 3), UnitType.Demolisher);
-        	   }
-        	   bitsRemaining = (int) curr.data.p1Stats.bits;
-        	   for (int i = 0; i <= bitsRemaining; i ++) {
-        	       curr.attemptSpawn(new Coords(11, 2), UnitType.Scout);
-        	   } 	
+            }
+        	bitsRemaining = (int) curr.data.p1Stats.bits;
+        	for (int i = 0; i <= bitsRemaining; i ++) {
+        		curr.attemptSpawn(new Coords(11, 2), UnitType.Scout);
+        	}
+        	
         }  else {
-           for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
+        	for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
                 curr.attemptSpawn(new Coords(14, 0), UnitType.Demolisher);
             }
-           bitsRemaining = (int) curr.data.p1Stats.bits;
-        	   for (int i = 0; i <= bitsRemaining; i ++) {
-        	       curr.attemptSpawn(new Coords(11, 2), UnitType.Scout);
-        	   }	
+        	bitsRemaining = (int) curr.data.p1Stats.bits;
+        	for (int i = 0; i <= bitsRemaining; i ++) {
+        		curr.attemptSpawn(new Coords(15, 1), UnitType.Scout);
+        	}
+        	
         }
         
 //        for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
