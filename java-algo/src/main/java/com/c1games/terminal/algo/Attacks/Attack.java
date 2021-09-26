@@ -1,5 +1,7 @@
 package com.c1games.terminal.algo.Attacks;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.c1games.terminal.algo.Coords;
@@ -8,9 +10,11 @@ import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
 public abstract class Attack {
-    public static Coords bestLaunch(GameState curr, UnitType Piece, int num) {
-        Coords minCoords = new Coords(0,0);
+    public static List<Coords> bestLaunch(GameState curr, UnitType Piece, int num) {
+        Coords minCoord = new Coords(0,0);
         double minDamage = Integer.MAX_VALUE;
+        List<Double> minDamages = new ArrayList<Double>();
+        List<Coords> minCoords = new ArrayList<Coords>();
         for (int i = 0; i <= 27; i++) {
             Coords start = new Coords(0,0);
             if (i <= 13) {
@@ -25,16 +29,15 @@ public abstract class Attack {
                 for (Coords m: path) {
                     List<Unit> attackers = curr.getAttackers(m);
                     for (Unit k: attackers) {
-                        totalDamage += k.unitInformation.attackDamageWalker.getAsDouble();
+                        totalDamage += k.unitInformation.attackDamageWalker.orElse(0);
                     }
                 }
-                if (totalDamage < minDamage) {
-                    minDamage = totalDamage;
-                    minCoords = start;
-                }
+                int index = Collections.binarySearch(minDamages, totalDamage);
+                if (index < 0) index = ~index;
+                minDamages.add(index, totalDamage);
+                minCoords.add(index, start);
             }
         }
-        
         return minCoords;
     }
 }
