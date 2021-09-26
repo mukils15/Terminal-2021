@@ -19,6 +19,8 @@ public class DefensivePlacementStrategy {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("java-algo/terminal_ordinal_placements.csv"));
+            File f = new File("");
+            System.out.println("Abs path: " + f.getAbsolutePath() + " path: " + f.getPath());
             String s;
             StringTokenizer st;
             int moveNumber = 0;

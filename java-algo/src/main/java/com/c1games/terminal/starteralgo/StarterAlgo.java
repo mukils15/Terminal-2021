@@ -13,7 +13,7 @@ import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 import com.c1games.terminal.starteralgo.WinCondition; 
-import com.c1games.terminal.starteralgo.Interceptor;ls
+import com.c1games.terminal.starteralgo.Interceptor;
 
 import java.util.*;
 
