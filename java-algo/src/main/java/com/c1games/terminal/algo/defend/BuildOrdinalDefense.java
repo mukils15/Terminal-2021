@@ -26,21 +26,26 @@ public class BuildOrdinalDefense {
 
             Unit currentUnitAtLoc = gameState.getWallAt(coords);
 
-            // has the unit been manually deleted?
-            if (gameState.canSpawn(coords, unitToPlace.getUnitType(), 1) == CanSpawn.Yes) {
-                // can you afford to build
-                if (gameState.numberAffordable(unitToPlace.getUnitType()) >= 1) {
-                    // spawn unit
-                    gameState.attemptSpawn(coords, unitToPlace.getUnitType());
+            if (unitToPlace.getPlaceOperationType() == PlaceOperationType.Build) {
+                // has the unit been manually deleted?
+                if (gameState.canSpawn(coords, unitToPlace.getUnitType(), 1) == CanSpawn.Yes) {
+                    // can you afford to build
+                    if (gameState.numberAffordable(unitToPlace.getUnitType()) >= 1) {
+                        // spawn unit
+                        gameState.attemptSpawn(coords, unitToPlace.getUnitType());
 
-                    numberBuilt++;
-                } else {
-                    // need to save 2 credits during the current turn
-                    if (numberBuilt >= 1) {
-                        // save credits
+                        numberBuilt++;
+                    } else {
+                        // need to save 2 credits during the current turn
+                        if (numberBuilt >= 1) {
+                            // save credits
+                        }
                     }
                 }
+            } else if (unitToPlace.getPlaceOperationType() == PlaceOperationType.Upgrade) {
+                gameState.attemptUpgrade(coords);
             }
+
         }
     }
 }
