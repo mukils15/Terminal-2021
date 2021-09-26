@@ -105,7 +105,7 @@ public class WinCondition {
         gs.attemptRemoveStructureMultiple(coord);
     }
 
-    public boolean opponentWinCondition(GameState gs) {
+    public static boolean opponentWinCondition(GameState gs) {
         double potentialDamage = 0;
         float theirUnits = gs.data.p2Stats.bits;
         for (int i = 0; i <= 3; i++) {
