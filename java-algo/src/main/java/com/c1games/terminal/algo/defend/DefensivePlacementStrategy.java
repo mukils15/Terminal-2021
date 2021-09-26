@@ -1,6 +1,7 @@
 package com.c1games.terminal.algo.defend;
 
 import com.c1games.terminal.algo.Coords;
+import com.c1games.terminal.algo.GameIO;
 import com.c1games.terminal.algo.units.UnitType;
 
 import java.io.*;
@@ -10,7 +11,6 @@ import java.util.StringTokenizer;
 
 public class DefensivePlacementStrategy {
 
-    private final String filename = "terminal_ordinal_placements.csv";
     private static DefensivePlacementStrategy single_instance = null;
     private final List<OrdinalPlacement> unitsToPlace;
 
@@ -18,9 +18,8 @@ public class DefensivePlacementStrategy {
         unitsToPlace = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("java-algo/terminal_ordinal_placements.csv"));
-            File f = new File("");
-            System.out.println("Abs path: " + f.getAbsolutePath() + " path: " + f.getPath());
+            BufferedReader br = new BufferedReader(new StringReader(CSVString.ordinal_csv));
+
             String s;
             StringTokenizer st;
             int moveNumber = 0;
