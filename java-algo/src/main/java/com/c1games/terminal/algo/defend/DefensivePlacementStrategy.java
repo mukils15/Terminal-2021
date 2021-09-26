@@ -18,7 +18,7 @@ public class DefensivePlacementStrategy {
         unitsToPlace = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("/java-algo/terminal_ordinal_placements.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("java-algo/terminal_ordinal_placements.csv"));
             String s;
             StringTokenizer st;
             int moveNumber = 0;
