@@ -75,6 +75,7 @@ public class WinCondition {
         if (defenseBroken(gs, side, coord)) {
             if (side == 1) {
                 for (int i = 1; i <= gs.numberAffordable(UnitType.Scout); i++) {
+                	gs.attemptSpawn(new Coords(21, 11), UnitType.Wall);
                     gs.attemptSpawn(new Coords(13, 0), UnitType.Scout);
                 }
                 return true;
