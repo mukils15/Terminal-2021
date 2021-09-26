@@ -87,8 +87,17 @@ public class StarterAlgo implements GameLoop {
              
              double min = ass.minDam.get(0);
              
-           
-             Interceptor.deployInterceptors(move);
+             if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
+            	 if (Interceptor.healthDeplenished(move)) {
+                	 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
+                	 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
+            	 } else {
+            		 move.attemptSpawn(new Coords(23, 9), UnitType.Interceptor);
+            	 }
+                 demolisherLineStrategy(move);
+             } else {
+            	  Interceptor.deployInterceptors(move);
+             }
               
              if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
                demolisherLineStrategy(move);
@@ -110,7 +119,7 @@ public class StarterAlgo implements GameLoop {
              	} else {
              		if (move.data.turnInfo.turnNumber > 3) {
              			int currentMUnits = (int) move.data.p1Stats.bits;
-                 		int budget = Math.min(4, Math.max(currentMUnits-4, 1));
+                 		int budget = Math.min(3, Math.max(currentMUnits-4, 1));
                  		Economy.Economy(budget, move, ass.minPos.get(0));
              		} else {
              			DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
@@ -323,7 +332,7 @@ public class StarterAlgo implements GameLoop {
         for (int x = 24; x>=5; x--) {
             move.attemptSpawn(new Coords(x, 12), UnitType.Wall);
         }
-        for (int i = 0; i<2; i++) {
+        for (int i = 0; i<5; i++) {
             move.attemptSpawn(new Coords(22, 8), UnitType.Demolisher);
         }
     }
