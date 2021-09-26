@@ -314,7 +314,7 @@ public class StarterAlgo implements GameLoop {
         for (int x = 24; x>=5; x--) {
             move.attemptSpawn(new Coords(x, 12), UnitType.Wall);
         }
-        for (int i = 0; i<5; i++) {
+        for (int i = 0; i<2; i++) {
             move.attemptSpawn(new Coords(22, 8), UnitType.Demolisher);
         }
     }
