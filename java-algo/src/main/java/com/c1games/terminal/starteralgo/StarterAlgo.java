@@ -83,11 +83,11 @@ public class StarterAlgo implements GameLoop {
              
              double min = ass.minDam.get(0);
              
-             double numScouts = move.numberAffordable(UnitType.Scout)*1.5;
+             double scoutHealth = move.numberAffordable(UnitType.Scout)*2;
              
              Interceptor.deployInterceptors(move);
              
-             if (numScouts >= min) {
+             if (scoutHealth >= min) {
              	Coords att = ass.minPos.get(0);
              	ScoutRush.ScoutRush(move, false, att);
              } else {
