@@ -9,23 +9,25 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class DemolishScoutStagger extends Attack{
+public class DemolishScoutStagger {
     
-    public DemolishScoutStagger(GameState curr, int numScouts, int rand) {
+    public DemolishScoutStagger(GameState curr, Coords best) {
         int totalCost = 0;
-        Coords best = bestLaunch(curr, UnitType.Scout, 1).get(rand);
-        for (int i = 0; i < numScouts; i++) {
-            curr.attemptSpawn(best, UnitType.Scout);
+        for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
+            curr.attemptSpawn(best, UnitType.Demolisher);
         }
-        if (best.x > 14) {
-            Coords demolish = new Coords(best.x-1, best.y-1);
-            curr.attemptSpawn(demolish, UnitType.Demolisher);
-        } else if (best.x < 14) {
-            Coords demolish = new Coords(best.x-1, best.y+1);
-            curr.attemptSpawn(demolish, UnitType.Demolisher);
-        } else {
-            Coords demolish = new Coords(13, 0);
-            curr.attemptSpawn(demolish, UnitType.Demolisher);
+        
+        while (curr.data.p1Stats.bits > 0) {
+            if (best.x < 13) {
+                Coords scout = new Coords(best.x + 1, best.y-1);
+                curr.attemptSpawn(scout, UnitType.Scout);
+            } else if (best.x > 13) {
+                Coords scout = new Coords(best.x + 1, best.y + 1);
+                curr.attemptSpawn(scout, UnitType.Scout);
+            } else {
+                Coords scout = new Coords(14, 0);
+                curr.attemptSpawn(scout, UnitType.Scout);
+            }
         }
     }
 }
