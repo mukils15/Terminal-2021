@@ -11,7 +11,7 @@ import com.c1games.terminal.algo.units.UnitType;
 
 public class DemolishScoutStagger {
     
-    public DemolishScoutStagger(GameState curr, Coords best) {
+    public static void DemolishScoutStagger(GameState curr, Coords best) {
         int totalCost = 0;
         for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
             curr.attemptSpawn(best, UnitType.Demolisher);
