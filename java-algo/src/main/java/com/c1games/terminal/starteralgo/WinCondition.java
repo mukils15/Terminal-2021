@@ -112,7 +112,9 @@ public class WinCondition {
         for (int i = 0; i <= 3; i++) {
             for (int j = 13; j >= 13 - i; j--) {
                 Unit u = gs.getWallAt(new Coords(i, j));
-                potentialDamage += (u.unitInformation.attackDamageWalker.orElse(0) * (13 - 9));
+                if (u != null) {
+                	potentialDamage += (u.unitInformation.attackDamageWalker.orElse(0) * (13 - 9));
+                } 
             }
         }
         if (potentialDamage <= (theirUnits * 9)) {
