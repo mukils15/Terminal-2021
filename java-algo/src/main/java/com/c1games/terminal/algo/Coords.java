@@ -1,6 +1,7 @@
 package com.c1games.terminal.algo;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Two-dimensional, integer coordinates.
@@ -21,6 +22,19 @@ public class Coords {
                 new Coords(x, y + 1),
                 new Coords(x, y - 1)
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coords coords = (Coords) o;
+        return x == coords.x && y == coords.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     @Override
