@@ -9,11 +9,11 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class DemolishScoutStagger {
+public class DemolishScoutStagger extends Attack{
     
-    public DemolishScoutStagger(GameState curr, int numScouts) {
+    public DemolishScoutStagger(GameState curr, int numScouts, int rand) {
         int totalCost = 0;
-        Coords best = Attack.bestLaunch(curr, UnitType.Scout, 1);
+        Coords best = bestLaunch(curr, UnitType.Scout, 1).get(rand);
         for (int i = 0; i < numScouts; i++) {
             curr.attemptSpawn(best, UnitType.Scout);
         }
