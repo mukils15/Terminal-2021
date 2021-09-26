@@ -76,7 +76,9 @@ public class StarterAlgo implements GameLoop {
         
         
         if (ourWinCondition != 0) {
-        	WinCondition.doWin(move, ourWinCondition);
+        	BoolList didWin = WinCondition.doWin(move, ourWinCondition);
+        	List<Coords> coordPoints = didWin.coordList; 
+        	boolean attacked = didWin.tried;
         } else {
         	 b.buildDefense();
         	 Attack ass = new Attack(move, UnitType.Scout, 1); 
