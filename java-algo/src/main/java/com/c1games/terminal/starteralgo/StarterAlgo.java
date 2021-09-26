@@ -8,6 +8,7 @@ import com.c1games.terminal.algo.map.GameState;
 import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
+import com.c1games.terminal.starteralgo.WinCondition.*; 
 
 import java.util.*;
 
@@ -60,7 +61,23 @@ public class StarterAlgo implements GameLoop {
         GameIO.debug().println("Performing turn " + move.data.turnInfo.turnNumber + " of Pennguins strategy");
 
         BuildOrdinalDefense b = new BuildOrdinalDefense(move);
+        
+        boolean theirWinCondition = WinCondition.opponentWinCondition(move);
+        if (theirWinCondition) {
+        	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
+        	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
+        } 
+        int ourWinCondition = WinCondition.winPossible(move, 2); 
+        if (ourWinCondition != 0) {
+        	WinCondition.doWin(move, ourWinCondition);
+        }
+        
+        
         b.buildDefense();
+        
+        // interceptor logic
+        
+        
 
         // move.attemptSpawnMultiple(Arrays.asList(new Coords[]{new Coords(24,10), new Coords(24,10), new Coords(24,10)}), UnitType.Demolisher);
 
