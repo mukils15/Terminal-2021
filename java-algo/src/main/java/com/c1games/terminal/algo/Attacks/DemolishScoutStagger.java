@@ -16,11 +16,11 @@ public class DemolishScoutStagger {
     	int bitsRemaining = (int) curr.data.p1Stats.bits;
     	if (best.x < 13) {
         	for (int i = 0; i < bitsRemaining * 0.75; i++) {
-                curr.attemptSpawn(new Coords(10, 3), UnitType.Demolisher);
+                curr.attemptSpawn(new Coords(13, 0), UnitType.Demolisher);
             }
         	bitsRemaining = (int) curr.data.p1Stats.bits;
         	for (int i = 0; i <= bitsRemaining; i ++) {
-        		curr.attemptSpawn(new Coords(11, 2), UnitType.Scout);
+        		curr.attemptSpawn(new Coords(12, 1), UnitType.Scout);
         	}
         	
         }  else {
