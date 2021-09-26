@@ -16,7 +16,7 @@ public class WinCondition {
     public static int winPossible(GameState gs, double multiplier) {
         int winAmount = (int) gs.data.p2Stats.integrity;
         winAmount++;
-        if (winAmount <= 4) {
+        if (winAmount <= 8) {
         	return 0; 
         }
         int responseLeft = 0;
