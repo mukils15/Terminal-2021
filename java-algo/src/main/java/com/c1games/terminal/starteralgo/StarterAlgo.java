@@ -63,8 +63,6 @@ public class StarterAlgo implements GameLoop {
         b.buildDefense();
 
         // move.attemptSpawnMultiple(Arrays.asList(new Coords[]{new Coords(24,10), new Coords(24,10), new Coords(24,10)}), UnitType.Demolisher);
-
-
 //        buildDefenses(move);
 //        buildReactiveDefenses(move);
 //
