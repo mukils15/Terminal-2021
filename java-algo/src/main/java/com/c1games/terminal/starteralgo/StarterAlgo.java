@@ -72,8 +72,7 @@ public class StarterAlgo implements GameLoop {
         	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
         	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
         } 
-        int ourWinCondition = WinCondition.winPossible(move, 2); 
-        
+        int ourWinCondition = WinCondition.winPossible(move, 2);
         
         if (ourWinCondition != 0) {
         	WinCondition.doWin(move, ourWinCondition);
