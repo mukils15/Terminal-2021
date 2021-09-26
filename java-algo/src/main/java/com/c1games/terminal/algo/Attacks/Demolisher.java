@@ -14,8 +14,7 @@ import com.c1games.terminal.algo.units.UnitType;
 
 public class Demolisher extends Attack{
     
-    public Demolisher(GameState curr, int rand) {
-        Coords best = bestLaunch(curr, UnitType.Demolisher, 1).get(rand);
+    public Demolisher(GameState curr, int rand, Coords best) {
         boolean can = curr.attemptSpawn(best, UnitType.Scout);
     }
     

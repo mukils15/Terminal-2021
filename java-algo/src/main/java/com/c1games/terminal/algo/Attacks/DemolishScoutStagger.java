@@ -11,9 +11,8 @@ import com.c1games.terminal.algo.units.UnitType;
 
 public class DemolishScoutStagger extends Attack{
     
-    public DemolishScoutStagger(GameState curr, int rand) {
+    public DemolishScoutStagger(GameState curr, int rand, Coords best) {
         int totalCost = 0;
-        Coords best = bestLaunch(curr, UnitType.Demolisher, 1).get(rand);
         for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
             curr.attemptSpawn(best, UnitType.Demolisher);
         }

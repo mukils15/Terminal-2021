@@ -2,6 +2,7 @@ package com.c1games.terminal.algo.Attacks;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.c1games.terminal.algo.Coords;
@@ -9,8 +10,12 @@ import com.c1games.terminal.algo.map.GameState;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public abstract class Attack {
-    public static List<Coords> bestLaunch(GameState curr, UnitType Piece, int num) {
+public class Attack {
+    
+    public List<Double> minDam;
+    public List<Coords> minPos;
+   
+    public Attack(GameState curr, UnitType Piece, int num) {
         Coords minCoord = new Coords(0,0);
         double minDamage = Integer.MAX_VALUE;
         List<Double> minDamages = new ArrayList<Double>();
@@ -38,6 +43,7 @@ public abstract class Attack {
                 minCoords.add(index, start);
             }
         }
-        return minCoords;
+        minDam = minDamages;
+        minPos = minCoords;
     }
 }
