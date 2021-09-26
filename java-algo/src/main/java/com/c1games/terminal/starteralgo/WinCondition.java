@@ -31,7 +31,7 @@ public class WinCondition {
         }
         int spawnPossible = gs.numberAffordable(UnitType.Scout);
         double sP = (double) spawnPossible;
-        if ((sP * 15) - damagePossible > winAmount * multiplier) {
+        if (((sP * 15) - damagePossible)/15 > (winAmount * multiplier)) {
             responseLeft = 2;
         } else {
             responseRight = 0;
@@ -47,7 +47,7 @@ public class WinCondition {
                 }
             }
         }
-        if ((sP * 15) - damagePossible > winAmount * multiplier) {
+        if (((sP * 15) - damagePossible)/15 > (winAmount * multiplier)) {
             responseRight = 1;
         } else {
             responseLeft = 0;
@@ -75,11 +75,13 @@ public class WinCondition {
         if (defenseBroken(gs, side, coord)) {
             if (side == 1) {
                 for (int i = 1; i <= gs.numberAffordable(UnitType.Scout); i++) {
+                	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                     gs.attemptSpawn(new Coords(13, 0), UnitType.Scout);
                 }
                 return true;
             } else {
                 for (int i = 1; i <= gs.numberAffordable(UnitType.Scout); i++) {
+                	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                     gs.attemptSpawn(new Coords(14, 0), UnitType.Scout);
                 }
                 return true;
@@ -111,10 +113,12 @@ public class WinCondition {
         for (int i = 0; i <= 3; i++) {
             for (int j = 13; j >= 13 - i; j--) {
                 Unit u = gs.getWallAt(new Coords(i, j));
-                potentialDamage += (u.unitInformation.attackDamageWalker.orElse(0) * (13 - 9));
+                if (u != null) {
+                	potentialDamage += (u.unitInformation.attackDamageWalker.orElse(0) * (13 - 9));
+                } 
             }
         }
-        if (potentialDamage <= (theirUnits * 9)) {
+        if (potentialDamage <= (theirUnits * 4)) {
             return true;
         } else {
             return false;

@@ -3,36 +3,34 @@ package com.c1games.terminal.algo.defend;
 import com.c1games.terminal.algo.Coords;
 import com.c1games.terminal.algo.map.CanSpawn;
 import com.c1games.terminal.algo.map.GameState;
-import com.c1games.terminal.algo.map.Unit;
 
-import java.io.IOException;
 import java.util.List;
 
 public class BuildOrdinalDefense {
 
-    private GameState gameState;
+    private GameState move;
 
-    public BuildOrdinalDefense(GameState gameState) {
-        this.gameState = gameState;
+    public BuildOrdinalDefense(GameState move) {
+        this.move = move;
     }
 
     public void buildDefense() {
         List<OrdinalPlacement> ordinalPlacements = DefensivePlacementStrategy.getInstance().getOrdinalPlacements();
 
         int numberBuilt = 0;
-        for (int i = 0; i < ordinalPlacements.size(); i++) {
+        for (int i = 0; i < ordinalPlacements.size() && move.data.p2Stats.cores > 0; i++) {
             OrdinalPlacement unitToPlace = ordinalPlacements.get(i);
             Coords coords = unitToPlace.getCoords();
 
-            Unit currentUnitAtLoc = gameState.getWallAt(coords);
+            // Unit currentUnitAtLoc = gameState.getWallAt(coords);
 
             if (unitToPlace.getPlaceOperationType() == PlaceOperationType.Build) {
                 // has the unit been manually deleted?
-                if (gameState.canSpawn(coords, unitToPlace.getUnitType(), 1) == CanSpawn.Yes) {
+                if (move.canSpawn(coords, unitToPlace.getUnitType(), 1) == CanSpawn.Yes) {
                     // can you afford to build
-                    if (gameState.numberAffordable(unitToPlace.getUnitType()) >= 1) {
+                    if (move.numberAffordable(unitToPlace.getUnitType()) >= 1) {
                         // spawn unit
-                        gameState.attemptSpawn(coords, unitToPlace.getUnitType());
+                        move.attemptSpawn(coords, unitToPlace.getUnitType());
 
                         numberBuilt++;
                     } else {
@@ -43,7 +41,7 @@ public class BuildOrdinalDefense {
                     }
                 }
             } else if (unitToPlace.getPlaceOperationType() == PlaceOperationType.Upgrade) {
-                gameState.attemptUpgrade(coords);
+                move.attemptUpgrade(coords);
             }
 
         }

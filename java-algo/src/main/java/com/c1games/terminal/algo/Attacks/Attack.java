@@ -20,7 +20,7 @@ public class Attack {
         double minDamage = Integer.MAX_VALUE;
         List<Double> minDamages = new ArrayList<Double>();
         List<Coords> minCoords = new ArrayList<Coords>();
-        for (int i = 0; i <= 27; i++) {
+        for (int i = 10; i <= 24; i++) {
             Coords start = new Coords(0,0);
             if (i <= 13) {
                 start = new Coords(i, 13-i);

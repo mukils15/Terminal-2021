@@ -1,6 +1,10 @@
 package com.c1games.terminal.starteralgo;
 
 import com.c1games.terminal.algo.*;
+import com.c1games.terminal.algo.Attacks.Attack;
+import com.c1games.terminal.algo.Attacks.DemolishScoutStagger;
+import com.c1games.terminal.algo.Attacks.Economy;
+import com.c1games.terminal.algo.Attacks.ScoutRush;
 import com.c1games.terminal.algo.defend.BuildOrdinalDefense;
 import com.c1games.terminal.algo.io.GameLoop;
 import com.c1games.terminal.algo.io.GameLoopDriver;
@@ -8,7 +12,8 @@ import com.c1games.terminal.algo.map.GameState;
 import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
-import com.c1games.terminal.starteralgo.WinCondition.*; 
+import com.c1games.terminal.starteralgo.WinCondition; 
+import com.c1games.terminal.starteralgo.Interceptor;
 
 import java.util.*;
 
@@ -64,18 +69,48 @@ public class StarterAlgo implements GameLoop {
         
         boolean theirWinCondition = WinCondition.opponentWinCondition(move);
         if (theirWinCondition) {
-            move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
-            move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
+        	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
+        	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
         } 
-        int ourWinCondition = WinCondition.winPossible(move, 2); 
-         if (ourWinCondition != 0) {
+        int ourWinCondition = WinCondition.winPossible(move, 1.5); 
+        
+        
+        if (ourWinCondition != 0) {
         	WinCondition.doWin(move, ourWinCondition);
+        } else {
+        	 b.buildDefense();
+        	 Attack ass = new Attack(move, UnitType.Scout, 1); 
+             
+             double min = ass.minDam.get(0);
+             
+             double scoutHealth = move.numberAffordable(UnitType.Scout)*2;
+             
+             Interceptor.deployInterceptors(move);
+             
+             if (scoutHealth >= min) {
+             	Coords att = ass.minPos.get(0);
+             	ScoutRush.ScoutRush(move, false, att);
+             } else {
+             	int randomiser = (int) (Math.random()*100);
+             	int coordRandom = (int)(Math.random()*(Math.min(3, ass.minPos.size())));
+             	if (randomiser < 20) {
+             		ScoutRush.ScoutRush(move,  true, ass.minPos.get(coordRandom));
+             	} else if (randomiser <= 50) {
+             		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
+             	} else {
+             		int currentMUnits = (int) move.data.p1Stats.bits;
+             		int budget = Math.min(5, Math.max(currentMUnits-5, 1));
+             		Economy.Economy(budget, move, ass.minPos.get(0));
+             	}
+             }
         }
         
+       
         
-        b.buildDefense();
         
-        // interceptor logic
+
+        
+        
         
         
 
