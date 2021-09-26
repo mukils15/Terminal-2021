@@ -13,7 +13,7 @@ import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 import com.c1games.terminal.starteralgo.WinCondition; 
-import com.c1games.terminal.starteralgo.Interceptor;
+import com.c1games.terminal.starteralgo.Interceptor;ls
 
 import java.util.*;
 
@@ -71,12 +71,11 @@ public class StarterAlgo implements GameLoop {
         if (theirWinCondition) {
         	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
         	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
-        } 
-        int ourWinCondition = WinCondition.winPossible(move, 2);
-        
+        }
+        int ourWinCondition = WinCondition.winPossible(move, 1.5); 
+
         if (ourWinCondition != 0) {
         	WinCondition.doWin(move, ourWinCondition);
-        	b.buildDefense(); 
         } else {
         	 b.buildDefense();
         	 Attack ass = new Attack(move, UnitType.Scout, 1); 
