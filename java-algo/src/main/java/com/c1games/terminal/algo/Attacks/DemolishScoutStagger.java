@@ -9,9 +9,9 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class DemolishScoutStagger extends Attack{
+public class DemolishScoutStagger {
     
-    public DemolishScoutStagger(GameState curr, int rand, Coords best) {
+    public DemolishScoutStagger(GameState curr, Coords best) {
         int totalCost = 0;
         for (int i = 0; i < curr.data.p1Stats.bits * 0.75; i++) {
             curr.attemptSpawn(best, UnitType.Demolisher);

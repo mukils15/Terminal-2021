@@ -14,7 +14,7 @@ import com.c1games.terminal.algo.units.UnitType;
 
 public class ScoutRush{
     
-    public ScoutRush (GameState curr, int rand, boolean capped, Coords best) {
+    public static void ScoutRush (GameState curr, boolean capped, Coords best) {
         if (capped) {
             float min = Math.min(curr.data.p1Stats.bits, 5);
             for (int i = 0; i < min; i++) {

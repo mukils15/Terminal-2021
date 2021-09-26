@@ -9,10 +9,10 @@ import com.c1games.terminal.algo.map.SpawnCommand;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 
-public class Economy extends Attack{
+public class Economy{
     
     //Save money on attack - don't spend all
-    public Economy(int budget, GameState curr, UnitType pieces,  Config config, int rand, Coords best) {
+    public static void Economy(int budget, GameState curr, UnitType pieces,  Config config, Coords best) {
          int totalCost = 0;
          while (totalCost < budget) {
              curr.attemptSpawn(best, pieces);
