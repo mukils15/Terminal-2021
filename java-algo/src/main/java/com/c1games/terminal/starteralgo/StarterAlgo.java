@@ -13,6 +13,7 @@ import com.c1games.terminal.algo.map.MapBounds;
 import com.c1games.terminal.algo.map.Unit;
 import com.c1games.terminal.algo.units.UnitType;
 import com.c1games.terminal.starteralgo.WinCondition; 
+import com.c1games.terminal.starteralgo.Interceptor;
 
 import java.util.*;
 
@@ -76,35 +77,41 @@ public class StarterAlgo implements GameLoop {
         
         if (ourWinCondition != 0) {
         	WinCondition.doWin(move, ourWinCondition);
-        }
-        
-        b.buildDefense();
-        
-        
-        // interceptor logic 
-        
-        Attack ass = new Attack(move, UnitType.Scout, 1); 
-        
-        double min = ass.minDam.get(0);
-        
-        double numScouts = move.numberAffordable(UnitType.Scout)*1.5;
-        
-        if (numScouts >= min) {
-        	Coords att = ass.minPos.get(0);
-        	ScoutRush.ScoutRush(move, false, att);
+        	b.buildDefense(); 
         } else {
-        	int randomiser = (int) (Math.random()*100);
-        	int coordRandom = (int)(Math.random()*(Math.min(3, ass.minPos.size())));
-        	if (randomiser < 20) {
-        		ScoutRush.ScoutRush(move,  true, ass.minPos.get(coordRandom));
-        	} else if (randomiser <= 50) {
-        		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
-        	} else {
-        		int currentMUnits = (int) move.data.p1Stats.bits;
-        		int budget = Math.min(5, Math.max(currentMUnits-5, 1));
-        		Economy.Economy(budget, move, ass.minPos.get(0));
-        	}
+        	 b.buildDefense();
+        	 Attack ass = new Attack(move, UnitType.Scout, 1); 
+             
+             double min = ass.minDam.get(0);
+             
+             double numScouts = move.numberAffordable(UnitType.Scout)*1.5;
+             
+             Interceptor.deployInterceptors(move);
+             
+             if (numScouts >= min) {
+             	Coords att = ass.minPos.get(0);
+             	ScoutRush.ScoutRush(move, false, att);
+             } else {
+             	int randomiser = (int) (Math.random()*100);
+             	int coordRandom = (int)(Math.random()*(Math.min(3, ass.minPos.size())));
+             	if (randomiser < 20) {
+             		ScoutRush.ScoutRush(move,  true, ass.minPos.get(coordRandom));
+             	} else if (randomiser <= 50) {
+             		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
+             	} else {
+             		int currentMUnits = (int) move.data.p1Stats.bits;
+             		int budget = Math.min(5, Math.max(currentMUnits-5, 1));
+             		Economy.Economy(budget, move, ass.minPos.get(0));
+             	}
+             }
         }
+        
+       
+        
+        
+
+        
+        
         
         
 
