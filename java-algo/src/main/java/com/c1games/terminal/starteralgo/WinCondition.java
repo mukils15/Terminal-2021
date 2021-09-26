@@ -56,14 +56,14 @@ public class WinCondition {
         return (Math.max(responseLeft, responseRight));
     }
 
-    public static boolean doWin(GameState gs, int side) {
+    public static BoolList doWin(GameState gs, int side) {
         List<Coords> coord = new ArrayList<Coords>();
-        if (side == 1) {
-            coord.add(new Coords(9, 5));
+        if (side == 2) {
             coord.add(new Coords(2, 12));
             coord.add(new Coords(0, 13));
             coord.add(new Coords(1, 13));
             coord.add(new Coords(3, 11));
+            coord.add(new Coords(7, 7));
         } else {
             coord.add(new Coords(27, 13));
             for (int i = 26; i >= 16; i--) {
@@ -74,21 +74,24 @@ public class WinCondition {
         }
         if (defenseBroken(gs, side, coord)) {
             if (side == 1) {
+            	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                 for (int i = 1; i <= gs.numberAffordable(UnitType.Scout); i++) {
-                	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                     gs.attemptSpawn(new Coords(13, 0), UnitType.Scout);
                 }
-                return true;
+                BoolList b = new BoolList(coord, true);
+                return b; 
             } else {
+            	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                 for (int i = 1; i <= gs.numberAffordable(UnitType.Scout); i++) {
-                	gs.attemptSpawn(new Coords(19, 11), UnitType.Wall);
                     gs.attemptSpawn(new Coords(14, 0), UnitType.Scout);
                 }
-                return true;
+                BoolList b = new BoolList(coord, true); 
+                return b; 
             }
         } else {
             breakDefense(gs, coord);
-            return false;
+            BoolList b = new BoolList(coord, false);
+            return b;
         }
 
     }
