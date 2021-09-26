@@ -42,7 +42,7 @@ public class Interceptor {
 				}
 			}
 		}
-		if (totalHealth <= 0.85 * 598) {
+		if (totalHealth <= 0.85 * 560) {
 			return true;
 		} else {
 			return false;
