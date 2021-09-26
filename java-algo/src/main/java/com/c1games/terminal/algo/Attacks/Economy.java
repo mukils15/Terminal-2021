@@ -12,11 +12,13 @@ import com.c1games.terminal.algo.units.UnitType;
 public class Economy {
     
     //Save money on attack - don't spend all
-    public Economy(int budget, GameState curr, UnitType pieces, Coords start, Config config) {
+    public GameState Economy(int budget, GameState curr, UnitType pieces,  Config config) {
          int totalCost = 0;
+         Coords best = Attack.bestLaunch(curr, pieces, 1);
          while (totalCost < budget) {
-             curr.attemptSpawn(start, pieces);
+             curr.attemptSpawn(best, pieces);
              totalCost += config.unitInformation.get(pieces.ordinal()).cost()[1];
          }
-    }
+         return curr;
+    }   
 }
