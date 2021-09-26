@@ -71,14 +71,15 @@ public class StarterAlgo implements GameLoop {
         if (theirWinCondition && move.data.turnInfo.turnNumber > 3) {
         	move.attemptSpawn(new Coords(5, 8), UnitType.Interceptor); 
         	move.attemptSpawn(new Coords(4, 9), UnitType.Interceptor);
-        }
+        } 
         int ourWinCondition = WinCondition.winPossible(move, 1.5); 
-
+        
+        
         if (ourWinCondition != 0) {
         	BoolList didWin = WinCondition.doWin(move, ourWinCondition);
         	List<Coords> coordPoints = didWin.coordList; 
         	boolean attacked = didWin.tried;
-
+        	
         	b.buildDefense(attacked, coordPoints);
         } else {
         	 b.buildDefense();
@@ -86,6 +87,7 @@ public class StarterAlgo implements GameLoop {
              
              double min = ass.minDam.get(0);
              
+           
              Interceptor.deployInterceptors(move);
               
              if (detectEnemyUnits(move,null, List.of(14,15), null) > 10) {
@@ -103,12 +105,17 @@ public class StarterAlgo implements GameLoop {
              	int coordRandom = (int)(Math.random()*(Math.min(3, ass.minPos.size())));
              	if (randomiser < 20) {
              		ScoutRush.ScoutRush(move,  true, ass.minPos.get(coordRandom));
-             	} else if (randomiser <= 50) {
+             	} else if (randomiser <= 60) {
              		DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
              	} else {
-             		int currentMUnits = (int) move.data.p1Stats.bits;
-             		int budget = Math.min(4, Math.max(currentMUnits-4, 1));
-             		Economy.Economy(budget, move, ass.minPos.get(0));
+             		if (move.data.turnInfo.turnNumber > 3) {
+             			int currentMUnits = (int) move.data.p1Stats.bits;
+                 		int budget = Math.min(4, Math.max(currentMUnits-4, 1));
+                 		Economy.Economy(budget, move, ass.minPos.get(0));
+             		} else {
+             			DemolishScoutStagger.DemolishScoutStagger(move, ass.minPos.get(coordRandom));
+             		}
+             		
              	}
              }
         }
