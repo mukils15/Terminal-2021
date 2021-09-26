@@ -14,14 +14,15 @@ public class Interceptor {
 	public static void deployInterceptors (GameState gs) {
 		if (funnelOpen(gs)) {
 			while (gs.data.p1Stats.bits >= 1) {
-				gs.attemptSpawn(new Coords(25, 11), UnitType.Interceptor);
+				gs.attemptSpawn(new Coords(24, 10), UnitType.Interceptor);
 			}
 		} else if (healthDeplenished(gs)){
-			gs.attemptSpawn(new Coords(25, 11), UnitType.Interceptor);
+			gs.attemptSpawn(new Coords(24, 10), UnitType.Interceptor);
+			gs.attemptSpawn(new Coords(24, 10), UnitType.Interceptor);
 		} else {
 			double x = Math.random(); 
 			if (x < 0.5) {
-				gs.attemptSpawn(new Coords(25, 11), UnitType.Interceptor);
+				gs.attemptSpawn(new Coords(24, 10), UnitType.Interceptor);
 			}
 		}
 	}
