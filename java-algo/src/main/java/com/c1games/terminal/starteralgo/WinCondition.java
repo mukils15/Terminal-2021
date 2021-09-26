@@ -13,7 +13,7 @@ import java.util.*;
 public class WinCondition {
 
 // 0 if no win, 1 if right, 2 if left 
-    public static int winPossibleLeft(GameState gs, double multiplier) {
+    public static int winPossible(GameState gs, double multiplier) {
         int winAmount = (int) gs.data.p2Stats.integrity;
         winAmount++;
         int responseLeft = 0;
